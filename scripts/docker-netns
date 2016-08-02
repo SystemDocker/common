@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+# Get the container's PID
+DOCKER_PID="$(docker inspect -f {{.State.Pid}} ${DOCKER_NAME})"
+
+# Setup the netns
+NETNS_DIR=/var/run/netns
+mkdir -p ${NETNS_DIR}
+ln -sf /proc/${DOCKER_PID}/ns/net ${NETNS_DIR}/${DOCKER_PID}
+
+# Execute the given command inside the containers netns
+exec ip netns exec ${DOCKER_PID} "$@"
