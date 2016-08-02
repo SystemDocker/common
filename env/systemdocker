@@ -1,0 +1,5 @@
+# SystemDocker variables
+SYSTEMDOCKER_COMMON_DIR=/srv/docker/common
+
+# dockenv defaults for SystemDocker
+DOCKER_RM=true
