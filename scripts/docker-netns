@@ -1,5 +1,12 @@
 #!/bin/bash -e
 
+# Check that DOCKER_NAME is set
+if [ -z "${DOCKER_NAME}" ]; then
+	>&2 echo "DOCKER_NAME must be set in the environment to use $0"
+	>&2 echo "Set DOCKER_NAME to the name of the container"
+	exit 1
+fi
+
 # Get the container's PID
 DOCKER_PID="$(docker inspect -f {{.State.Pid}} ${DOCKER_NAME})"
 

@@ -3,6 +3,11 @@
 export DOCKER_WAIT_TIMEOUT=${DOCKER_WAIT_TIMEOUT:-60}
 export DOCKER_WAIT_SLEEPTIME=${DOCKER_WAIT_SLEEPTIME:-0.5}
 
-test -n "${DOCKER_NAME}"
+# Check that DOCKER_NAME is set
+if [ -z "${DOCKER_NAME}" ]; then
+	>&2 echo "DOCKER_NAME must be set in the environment to use $0"
+	>&2 echo "Set DOCKER_NAME to the name of the container"
+	exit 1
+fi
 
 timeout ${DOCKER_WAIT_TIMEOUT} bash -c 'until [ "$(docker inspect -f {{.State.Running}} ${DOCKER_NAME})" == "true" ]; do sleep "${DOCKER_WAIT_SLEEPTIME}"; done'
