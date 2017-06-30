@@ -1,0 +1,7 @@
+# Use the {{ name }} docker network
+[Unit]
+Requires=docker-network@{{ name }}.service
+After=docker-network@{{ name }}.service
+
+[Service]
+Environment='DOCKER_NETWORK={{ name }}'

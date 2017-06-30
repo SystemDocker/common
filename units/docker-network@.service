@@ -1,0 +1,9 @@
+[Unit]
+Description=Create the %i docker network
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+
+ExecStartPre=-/usr/bin/docker network rm %i
+ExecStart=/srv/docker/common/bin/dockenv network create %i
