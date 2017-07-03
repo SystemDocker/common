@@ -5,3 +5,6 @@ After=docker-network@{{ name }}.service
 
 [Service]
 Environment='DOCKER_NETWORK={{ name }}'
+{% if ip is defined %}
+Environment='DOCKER_IP={{ ip }}'
+{% endif }
