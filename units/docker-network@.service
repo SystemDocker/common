@@ -1,4 +1,6 @@
 [Unit]
+Requires=docker.service
+After=docker.service
 Description=Create the %i docker network
 
 [Service]
